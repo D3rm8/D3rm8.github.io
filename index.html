@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Github Finder</title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+    <div class="container" id="profile">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="searchContainer">
+                <h1>Search Github Users</h1>
+                <input type="text" id="searchUser" class="form-control" placeholder="Enter name" v-model="username" v-on:keyup="checkName">
+            </div>
+            <br>
+
+            <!-- View User Profile -->
+            <div class="panel panel-default" v-if="username.length">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ user.name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img class="thumbnail avatar" v-bind:src="user.avatar_url">
+                            <a target="_blank" class="btn btn-primary btn-block" v-bind:href="user.html_url">View Profile</a>
+                        </div>
+                        <div class="col-md-9">
+                            <ul class="list-group">
+                                <li class="list-group-item">Username: {{user.login}}</li>
+                                <li class="list-group-item">Website/Blog: {{user.blog}}</li>
+                                <li class="list-group-item">Location: {{user.location}}</li>
+                                <li class="list-group-item">Membership Since: {{user.created_at}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View User Repositories -->
+            <h3 v-if="repos.length">Latest Repositories</h3>
+            <div class="list-group">
+                <a v-for="repo in repos" title="View Repo" v-bind:href="repo.html_url" target="_blank" class="list-group-item">
+                    <h4 class="list-group-item-heading">{{repo.name}}</h4>
+                    <p class="list-group-item-text">{{repo.description}}</p>
+                </a>
+            </div>
+
+            <div v-if="username.length">
+                <button class="btn btn-default btn-block" v-on:click="getMoreRepos">Get more repos</button>
+            </div>
+            <br> 
+        </div>
+    </div><!-- /.container -->
+        
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+    <script src="js/app.js"></script>
+    </body>
+</html>
