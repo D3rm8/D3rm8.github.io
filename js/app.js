@@ -41,6 +41,7 @@ var app = new Vue({
             // Check if the name entered is empty or not
             if(!this.username) {
                 console.log('no name');
+                this.per_page = 5;
             }
             else {
                 this.findUser();
